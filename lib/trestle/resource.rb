@@ -141,7 +141,9 @@ module Trestle
       end
 
       def disabled_routes
-        readonly? ? [:new, :create, :edit, :update, :destroy] : []
+        all_routes = [:new, :create, :edit, :update, :destroy]
+        eliminate_routes = options[:enable_actions] ? all_routes - Array(options[:enable_actions]) : []
+        readonly? ?  all_routes : eliminate_routes
       end
 
     private
