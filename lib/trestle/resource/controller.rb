@@ -44,7 +44,8 @@ module Trestle
 
       def show
         self.instance = admin.find_instance(params)
-
+        admin.options[:readonly] = true unless (admin.disabled_routes & [:update, :edit]).empty?
+        
         respond_to do |format|
           format.html
           format.json { render json: instance }
